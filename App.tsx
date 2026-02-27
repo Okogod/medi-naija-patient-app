@@ -1,16 +1,14 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 
-import "./global.css"
+import "./global.css";
+
+// Screens
+import SplashScreen from './src/screens/SplashScreen';
 
 export default function App() {
-
-
   return (
-    <View className={`flex-1 bg-white-600 justify-center items-center`}>
-      <Text className={`text-BlackColor`}>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <SplashScreen />
   );
 }
 
