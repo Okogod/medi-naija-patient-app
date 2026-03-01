@@ -10,6 +10,7 @@ import { useState, useRef } from "react";
 
 import { OnboardingParamList } from "../../types/StacksParamList";
 
+
 const OnboardingScreenContents = [
 
     {

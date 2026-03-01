@@ -25,13 +25,13 @@ const WelcomeScreen = () => {
 
                 <Pressable className={`bg-PinkColor px-[100px] py-[20px] rounded-[20px]`}>
 
-                    <Text className={`text-WhiteColor`}>Register</Text>
+                    <Text className={`text-WhiteColor text-[20px]`}>Register</Text>
 
                 </Pressable>
                 
                 <Pressable className={`bg-DarkGreenColor px-[100px] py-[20px] rounded-[20px]`}>
 
-                    <Text className={`text-WhiteColor`}>Login</Text>
+                    <Text className={`text-WhiteColor text-[20px]`}>Login</Text>
 
                 </Pressable>
 

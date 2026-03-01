@@ -10,7 +10,12 @@ import SplashScreen from './src/screens/splash_screen/SplashScreen';
 // Screen Stack
 import RootStackNavigator from "./src/navigators/stack_navigators/root_stack_navigator/RootStackNavigator";
 
+// Hook
+import useHasDoneOnboardingStore from "./src/hooks/UseHasDoneOnboardingStore";
+
 export default function App() {
+
+  const hasDoneOnboardingHydrated = useHasDoneOnboardingStore.persist.hasHydrated();
 
   const [showSplashScreenCount, setShowSplashScreenCount] = useState(0);
 
@@ -30,7 +35,7 @@ export default function App() {
     <NavigationContainer>
 
       {
-        showSplashScreenCount < 3 ? <SplashScreen /> : <RootStackNavigator />
+        !hasDoneOnboardingHydrated ? <SplashScreen /> : <RootStackNavigator />
       }
 
     </NavigationContainer>
