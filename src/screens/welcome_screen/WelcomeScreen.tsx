@@ -13,9 +13,9 @@ const WelcomeScreen = () => {
 
             <View>
 
-                <Text className={`text-DarkGreenColor text-[32px] font-bold text-center`}>MediNaija</Text>
+                <Text className={`text-DarkGreenColor text-[32px] text-center font-poppins-bold`}>MediNaija</Text>
 
-                <Text className={`text-center text-[18px]`}>your health, your way</Text>
+                <Text className={`text-center text-[18px] font-poppins-regular`}>your health, your way</Text>
 
             </View>
 
@@ -25,13 +25,13 @@ const WelcomeScreen = () => {
 
                 <Pressable className={`bg-PinkColor px-[100px] py-[20px] rounded-[20px]`}>
 
-                    <Text className={`text-WhiteColor text-[20px]`}>Register</Text>
+                    <Text className={`text-WhiteColor text-[20px] font-poppins-medium`}>Register</Text>
 
                 </Pressable>
                 
                 <Pressable className={`bg-DarkGreenColor px-[100px] py-[20px] rounded-[20px]`}>
 
-                    <Text className={`text-WhiteColor text-[20px]`}>Login</Text>
+                    <Text className={`text-WhiteColor text-[20px] font-poppins-medium`}>Login</Text>
 
                 </Pressable>
 

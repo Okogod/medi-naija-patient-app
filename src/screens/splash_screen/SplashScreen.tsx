@@ -17,7 +17,7 @@ const SplashScreen = () => {
 
             <View>
 
-                <Text className={`text-WhiteColor text-[24px] text-center`}>Your Health, {'\n'} one Click Away</Text>
+                <Text className={`text-WhiteColor text-[24px] text-center font-poppins-medium`}>Your Health, {'\n'} one Click Away</Text>
 
             </View>
 

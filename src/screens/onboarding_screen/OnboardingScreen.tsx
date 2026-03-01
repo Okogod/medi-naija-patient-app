@@ -83,7 +83,7 @@ const OnbaordingScreen = () => {
                 currentOnboardingScreenIndex < 2 ?
                     <Pressable onPress={Skip} className={`items-end px-[32px]`}>
 
-                        <Text className={`text-[20px]`}>Skip</Text>
+                        <Text className={`text-[20px] font-poppins-medium`}>Skip</Text>
 
                     </Pressable>
                     :
@@ -98,9 +98,9 @@ const OnbaordingScreen = () => {
 
                             <Image source={onboardingContents.image} resizeMode="contain" />
 
-                            <Text className={`text-DarkGreenColor text-[24px] font-bold`}>{onboardingContents.title}</Text>
+                            <Text className={`text-DarkGreenColor text-[24px] font-poppins-bold`}>{onboardingContents.title}</Text>
 
-                            <Text className={`text-GreyColor text-center text-[20px] p-[10px]`}>{onboardingContents.subtitle}</Text>
+                            <Text className={`text-GreyColor text-center text-[20px] p-[10px] font-poppins-regular`}>{onboardingContents.subtitle}</Text>
 
                         </View>
                     )
@@ -123,12 +123,12 @@ const OnbaordingScreen = () => {
                     currentOnboardingScreenIndex == 2 ?
                         <Pressable onPress={() => { GetStarted() }} className={`bg-PinkColor py-[20px] px-[100px] rounded-[20px] `}>
 
-                            <Text className={`text-[20px] text-center text-WhiteColor`}>GET STARTED</Text>
+                            <Text className={`text-[20px] text-center text-WhiteColor font-poppins-medium`}>GET STARTED</Text>
 
                         </Pressable> :
                         <Pressable onPress={Next} className={`bg-PinkColor py-[20px] px-[100px] rounded-[20px] `}>
 
-                            <Text className={`text-[20px] text-center text-WhiteColor`}>NEXT</Text>
+                            <Text className={`text-[20px] text-center text-WhiteColor font-poppins-medium`}>NEXT</Text>
 
                         </Pressable>
                 }

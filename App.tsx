@@ -1,6 +1,6 @@
 import { NavigationContainer } from "@react-navigation/native";
 
-import { useState, useEffect } from "react";
+import { useFonts } from "expo-font";
 
 import "./global.css";
 
@@ -15,21 +15,20 @@ import useHasDoneOnboardingStore from "./src/hooks/UseHasDoneOnboardingStore";
 
 export default function App() {
 
+  const [fontsLoaded] = useFonts({
+
+    "Poppins-Regular": require("./assets/fonts/Poppins-Regular.ttf"),
+    "Poppins-Medium": require("./assets/fonts/Poppins-Medium.ttf"),
+    "Poppins-Bold": require("./assets/fonts/Poppins-Bold.ttf")
+
+  });
+
+  if (!fontsLoaded) {
+    return null;
+  }
+
   const hasDoneOnboardingHydrated = useHasDoneOnboardingStore.persist.hasHydrated();
 
-  const [showSplashScreenCount, setShowSplashScreenCount] = useState(0);
-
-  useEffect(() => {
-
-    setTimeout(() => {
-
-      if (showSplashScreenCount < 3) {
-        setShowSplashScreenCount(showSplashScreenCount + 1);
-      }
-
-    }, 1000)
-
-  }, [showSplashScreenCount])
 
   return (
     <NavigationContainer>

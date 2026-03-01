@@ -14,7 +14,13 @@ module.exports = {
       BlackColor: "#000000",
       WhiteColor: "#FFFFFF",
     },
-    extend: {},
+    extend: {
+      fontFamily: {
+        "poppins-bold": ["Poppins-Bold", "sans-serif"],
+        "poppins-medium": ["Poppins-Medium", "sans-serif"],
+        "poppins-regular": ["Poppins-Regular", "sans-serif"],
+      },
+    },
   },
   plugins: [],
 }
