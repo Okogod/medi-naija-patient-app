@@ -2,8 +2,8 @@ import { ImageBackground, StatusBar, Image, View, Text } from 'react-native';
 
 
 // Assets
-const SplashScreenBackgroundImage = require('../../assets/images/splash-screen-images/splash-screen-background-image.png');
-const Logo = require('../../assets/images/logo/medi-naija-full-logo.png');
+const SplashScreenBackgroundImage = require('../../../assets/images/splash-screen-images/splash-screen-background-image.png');
+const Logo = require('../../../assets/images/logo/medi-naija-full-logo.png');
 
 
 const SplashScreen = () => {

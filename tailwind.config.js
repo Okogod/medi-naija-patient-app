@@ -9,7 +9,7 @@ module.exports = {
       LightGreenColor: "#04DCDC",
       PinkColor: "#FF6B6B",
       RedColor: "#ED2020",
-      AshColor: "#F9F9F9",
+      AshColor: "#D3D3D3",
       GreyColor: "#666666",
       BlackColor: "#000000",
       WhiteColor: "#FFFFFF",
