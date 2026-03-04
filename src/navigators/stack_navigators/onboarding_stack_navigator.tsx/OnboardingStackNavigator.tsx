@@ -1,8 +1,8 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
-import type { OnboardingParamList } from "../../../types/StacksParamList";
+import type { OnboardingStackParamList } from "../../../types/StacksParamList";
 
-const OnBoardingStack = createNativeStackNavigator<OnboardingParamList>();
+const OnBoardingStack = createNativeStackNavigator<OnboardingStackParamList>();
 
 
 // Screens

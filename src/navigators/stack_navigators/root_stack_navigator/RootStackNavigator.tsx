@@ -5,16 +5,23 @@ import type { RootStackParamList } from '../../../types/StacksParamList';
 
 const RootStack = createNativeStackNavigator<RootStackParamList>();
 
-//  Stack Screens
+import useHasDoneOnboardingStore from '../../../hooks/UseHasDoneOnboardingStore';
+
+//  Stack 
 import OnboardingStackNavigator from '../onboarding_stack_navigator.tsx/OnboardingStackNavigator';
+import AuthStackNavigator from '../auth_stack_navigator/AuthStack';
 
 const RootStackNavigator = () => {
 
+    const { hasDoneOnboarding } = useHasDoneOnboardingStore();
+
     return(
 
-            <RootStack.Navigator>
+            <RootStack.Navigator initialRouteName={ !hasDoneOnboarding ? "OnboardingStackNavigator" : "AuthStackNavigator" } screenOptions={{ headerShown: false }}>
 
-                <RootStack.Screen name="OnboardingStackNavigator" component={OnboardingStackNavigator} options={{headerShown: false}} />
+                <RootStack.Screen name="OnboardingStackNavigator" component={OnboardingStackNavigator}  />
+
+                <RootStack.Screen name="AuthStackNavigator" component={AuthStackNavigator} />
 
             </RootStack.Navigator>
 

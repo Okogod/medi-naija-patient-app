@@ -54,14 +54,17 @@ const OnbaordingScreen = () => {
     }
 
     const Skip = () => {
+        const lastIndex = OnboardingScreenContents.length - 1;
 
-        ScrollViewRef?.current?.scrollTo({ x: width * 2 });
+        ScrollViewRef?.current?.scrollTo({ x: width * lastIndex });
 
     }
 
     const Next = () => {
 
-        if( currentOnboardingScreenIndex != 2 ){
+        const lastIndex = OnboardingScreenContents.length - 1;
+
+        if( currentOnboardingScreenIndex != lastIndex ){
 
             const NextCurrentOnboardingScreenIndex = currentOnboardingScreenIndex + 1;
 

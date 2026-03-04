@@ -2,10 +2,37 @@ import { View, Text, Image, Pressable } from 'react-native';
 
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+import { useNavigation } from '@react-navigation/native';
 
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+
+import { RootStackParamList } from '../../types/StacksParamList';
+
+import useHasDoneOnboardingStore from '../../hooks/UseHasDoneOnboardingStore';
+
+// Asset
 const WelcomeImage = require('../../../assets/images/welcome_screen_images/welcome_screen_image.png');
 
 const WelcomeScreen = () => {
+
+    const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+
+    const { setHasDoneOnboarding } = useHasDoneOnboardingStore();
+
+    const ToRegister = () => {
+
+        setHasDoneOnboarding(true);
+
+        navigation.replace('AuthStackNavigator', { screen: 'RegisterScreen' })
+
+    }
+
+     const ToLogin = () => {
+
+        setHasDoneOnboarding(true);
+        navigation.replace('AuthStackNavigator', { screen: 'LoginScreen' })
+
+    }
 
     return (
 
@@ -23,15 +50,15 @@ const WelcomeScreen = () => {
 
             <View className={`gap-[40px]`}>
 
-                <Pressable className={`bg-PinkColor px-[100px] py-[20px] rounded-[20px]`}>
+                <Pressable onPress={ToRegister} className={`bg-PinkColor px-[100px] py-[20px] rounded-[20px]`}>
 
-                    <Text className={`text-WhiteColor text-[20px] font-poppins-medium`}>Register</Text>
+                    <Text className={`text-WhiteColor text-center text-[20px] font-poppins-medium`}>Register</Text>
 
                 </Pressable>
                 
-                <Pressable className={`bg-DarkGreenColor px-[100px] py-[20px] rounded-[20px]`}>
+                <Pressable onPress={ToLogin} className={`bg-DarkGreenColor px-[100px] py-[20px] rounded-[20px]`}>
 
-                    <Text className={`text-WhiteColor text-[20px] font-poppins-medium`}>Login</Text>
+                    <Text className={`text-WhiteColor text-center text-[20px] font-poppins-medium`}>Login</Text>
 
                 </Pressable>
 
