@@ -27,6 +27,12 @@ const RegisterScreen = () => {
 
     }
 
+    const GoToVerifyRegistration = () => {
+
+        navigation.replace( "VerifyRegistrationCodeScreen" );
+
+    }
+
     return (
         <SafeAreaView>
 
@@ -92,7 +98,7 @@ const RegisterScreen = () => {
 
                     <View className={`items-center justify-center gap-[10px]`}>
 
-                        <Pressable className={`bg-DarkGreenColor py-[15px] w-[90%] items-center rounded-[12px]`}>
+                        <Pressable onPress={GoToVerifyRegistration} className={`bg-DarkGreenColor py-[15px] w-[90%] items-center rounded-[12px]`}>
 
                             <Text className={`text-WhiteColor font-poppins-medium`}>Create Account</Text>
 

@@ -8,7 +8,10 @@ export type OnboardingStackParamList = {
 export type AuthStackParamList = {
     RegisterScreen: undefined,
     LoginScreen: undefined,
-    ForgotPasswordScreen: undefined
+    ForgotPasswordScreen: undefined,
+    VerifyRegistrationCodeScreen: undefined,
+    VerifyForgotPasswordCodeScreen: undefined,
+    ResetPasswordScreen: undefined
 }
 
 export type RootStackParamList = {
