@@ -8,27 +8,33 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 import { useState } from "react";
 
-import { AuthStackParamList } from "../../types/StacksParamList";
+import {  RootStackParamList } from "../../types/StacksParamList";
 
 const LoginScreen = () => {
 
     const { height } = useWindowDimensions();
 
-    const navigation = useNavigation<NativeStackNavigationProp<AuthStackParamList>>()
+    const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>()
 
     const [emailError, setEmailError] = useState("");
     const [passwordError, setPasswordError] = useState("");
 
     const GoToRegister = () => {
 
-        navigation.navigate("RegisterScreen");
+        navigation.replace("AuthStackNavigator", { screen: "RegisterScreen" });
 
     }
 
     const GoToForgotPassword = () => {
         
-        navigation.navigate("ForgotPasswordScreen");
+        navigation.replace("AuthStackNavigator", { screen: "ForgotPasswordScreen" });
         
+    }
+
+    const GoToHome = () => {
+
+        navigation.replace("MainTabNavigator", { screen: "HomeScreen"});
+
     }
 
     return (
@@ -83,7 +89,7 @@ const LoginScreen = () => {
 
                     <View className={`items-center justify-center gap-[10px]`}>
 
-                        <Pressable className={`bg-DarkGreenColor py-[15px] w-[90%] items-center rounded-[12px]`}>
+                        <Pressable onPress={GoToHome} className={`bg-DarkGreenColor py-[15px] w-[90%] items-center rounded-[12px]`}>
 
                             <Text className={`text-WhiteColor font-poppins-medium`}>Log in</Text>
 

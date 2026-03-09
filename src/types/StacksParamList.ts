@@ -14,8 +14,16 @@ export type AuthStackParamList = {
     ResetPasswordScreen: undefined
 }
 
+export type MainTabParamList = {
+    HomeScreen: undefined,
+    AppointmentsScreen: undefined,
+    ChatScreen: undefined,
+    ProfileScreen: undefined
+}
+
 export type RootStackParamList = {
     OnboardingStackNavigator: NavigatorScreenParams<OnboardingStackParamList>,
-    AuthStackNavigator: NavigatorScreenParams<AuthStackParamList>
+    AuthStackNavigator: NavigatorScreenParams<AuthStackParamList>,
+    MainTabNavigator: NavigatorScreenParams<MainTabParamList>
 };
 

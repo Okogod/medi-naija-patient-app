@@ -10,6 +10,7 @@ import useHasDoneOnboardingStore from '../../../hooks/UseHasDoneOnboardingStore'
 //  Stack 
 import OnboardingStackNavigator from '../onboarding_stack_navigator.tsx/OnboardingStackNavigator';
 import AuthStackNavigator from '../auth_stack_navigator/AuthStack';
+import MainTabNavigator from '../../main_tab_navigator/MainTabNavigator';
 
 const RootStackNavigator = () => {
 
@@ -22,6 +23,8 @@ const RootStackNavigator = () => {
                 <RootStack.Screen name="OnboardingStackNavigator" component={OnboardingStackNavigator}  />
 
                 <RootStack.Screen name="AuthStackNavigator" component={AuthStackNavigator} />
+
+                <RootStack.Screen name="MainTabNavigator" component={MainTabNavigator} />
 
             </RootStack.Navigator>
 
