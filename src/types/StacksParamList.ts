@@ -17,7 +17,7 @@ export type AuthStackParamList = {
 export type MainTabParamList = {
     HomeScreen: undefined,
     AppointmentsScreen: undefined,
-    ChatScreen: undefined,
+    ChatsScreen: undefined,
     ProfileScreen: undefined
 }
 

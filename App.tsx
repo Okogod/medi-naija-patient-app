@@ -2,6 +2,8 @@ import { NavigationContainer } from "@react-navigation/native";
 
 import { useFonts } from "expo-font";
 
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+
 import "./global.css";
 
 // Screens
@@ -12,6 +14,8 @@ import RootStackNavigator from "./src/navigators/stack_navigators/root_stack_nav
 
 // Hook
 import useHasDoneOnboardingStore from "./src/hooks/UseHasDoneOnboardingStore";
+
+const client = new QueryClient();
 
 export default function App() {
 
@@ -31,13 +35,17 @@ export default function App() {
 
 
   return (
-    <NavigationContainer>
+    <QueryClientProvider client={client}>
 
-      {
-        !hasDoneOnboardingHydrated ? <SplashScreen /> : <RootStackNavigator />
-      }
+      <NavigationContainer>
 
-    </NavigationContainer>
+        {
+          !hasDoneOnboardingHydrated ? <SplashScreen /> : <RootStackNavigator />
+        }
+
+      </NavigationContainer>
+
+    </QueryClientProvider>
   );
 }
 
