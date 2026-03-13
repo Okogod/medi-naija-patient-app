@@ -6,9 +6,14 @@ import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
 import { SafeAreaView } from "react-native-safe-area-context";
 
-import { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+
+import { useState, useEffect } from "react";
 
 import { AuthStackParamList } from "../../types/StacksParamList";
+
+// Icons
+import { Feather } from '@expo/vector-icons';
 
 const RegisterScreen = () => {
 
@@ -16,10 +21,27 @@ const RegisterScreen = () => {
 
     const navigation = useNavigation<NativeStackNavigationProp<AuthStackParamList>>();
 
+    const [firstNameValue, setFirstNameValue] = useState("");
+    const [lastNameValue, setLastNameValue] = useState("");
+    const [emailValue, setEmailValue] = useState("");
+    const [passwordValue, setPasswordValue] = useState("");
+
     const [firstNameError, setFirstNameError] = useState("");
     const [lastNameError, setLastNameError] = useState("");
     const [emailError, setEmailError] = useState("");
     const [passwordError, setPasswordError] = useState("");
+
+
+    const [showPassword, setShowPassword] = useState(false);
+
+    // Patterns
+    const namePatterns = /^[A-Za-z]+$/
+
+    const sendRegistrationCodeRoute = `${process.env.EXPO_PUBLIC_API_URL}/patient/send-registration-code`
+
+
+
+
 
     const GoToLogin = () => {
 
@@ -29,7 +51,7 @@ const RegisterScreen = () => {
 
     const GoToVerifyRegistration = () => {
 
-        navigation.replace( "VerifyRegistrationCodeScreen" );
+        navigation.replace("VerifyRegistrationCodeScreen");
 
     }
 
@@ -38,7 +60,7 @@ const RegisterScreen = () => {
 
             <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
 
-                <View style={{height}} className={`gap-[30px]`}>
+                <View style={{ height }} className={`gap-[30px]`}>
 
                     <View>
 
@@ -50,7 +72,7 @@ const RegisterScreen = () => {
 
                     <KeyboardAvoidingView behavior="padding" keyboardVerticalOffset={100} >
 
-                        <ScrollView showsVerticalScrollIndicator={false}  contentContainerClassName={`mx-[20px] gap-[20px]`} >
+                        <ScrollView showsVerticalScrollIndicator={false} contentContainerClassName={`mx-[20px] gap-[20px]`} >
 
                             <View className={`gap-[5px]`}>
 
@@ -86,7 +108,29 @@ const RegisterScreen = () => {
 
                                 <Text className={`font-poppins-regular text-BlackColor`}>Password</Text>
 
-                                <TextInput className={`border-[1px] border-GreyColor p-[10px] rounded-[8px]`} />
+                                <View className={`border-[1px] border-GreyColor rounded-[8px]`}>
+
+                                    <TextInput secureTextEntry={!showPassword} className={`w-[90%] border-GreyColor p-[10px] rounded-[8px]`} />
+
+                                    <View className={`absolute right-[10px] top-[10px]`}>
+
+                                        {
+                                            showPassword == false ?
+                                                <Pressable onPress={() => setShowPassword(true)}>
+
+                                                    <Feather name="eye" size={20} color="black" />
+
+                                                </Pressable>
+                                                : <Pressable onPress={() => setShowPassword(false)}>
+
+                                                    <Feather name="eye-off" size={20} color="black" />
+
+                                                </Pressable>
+                                        }
+
+                                    </View>
+
+                                </View>
 
                                 {passwordError && <Text className={`text-RedColor font-poppins-regular`}>{passwordError}</Text>}
 

@@ -8,7 +8,10 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 import { useState } from "react";
 
-import {  RootStackParamList } from "../../types/StacksParamList";
+import { RootStackParamList } from "../../types/StacksParamList";
+
+// Icons
+import { Feather } from '@expo/vector-icons';
 
 const LoginScreen = () => {
 
@@ -19,6 +22,8 @@ const LoginScreen = () => {
     const [emailError, setEmailError] = useState("");
     const [passwordError, setPasswordError] = useState("");
 
+    const [showPassword, setShowPassword] = useState(false);
+
     const GoToRegister = () => {
 
         navigation.replace("AuthStackNavigator", { screen: "RegisterScreen" });
@@ -26,14 +31,14 @@ const LoginScreen = () => {
     }
 
     const GoToForgotPassword = () => {
-        
+
         navigation.replace("AuthStackNavigator", { screen: "ForgotPasswordScreen" });
-        
+
     }
 
     const GoToHome = () => {
 
-        navigation.replace("MainTabNavigator", { screen: "HomeScreen"});
+        navigation.replace("MainTabNavigator", { screen: "HomeScreen" });
 
     }
 
@@ -71,15 +76,31 @@ const LoginScreen = () => {
 
                                 <Text className={`font-poppins-regular text-BlackColor`}>Password</Text>
 
-                                <TextInput className={`border-[1px] border-GreyColor p-[10px] rounded-[8px]`} />
+                                <View className={`border-[1px] border-GreyColor rounded-[8px]`}>
+
+                                    <TextInput secureTextEntry={!showPassword} className={`w-[90%] border-GreyColor p-[10px] rounded-[8px]`} />
+
+                                    <View className={`absolute right-[10px] top-[10px]`}>
+
+                                        {
+                                            showPassword == false ?
+                                                <Pressable onPress={() => setShowPassword(true)}>
+
+                                                    <Feather name="eye" size={20} color="black" />
+
+                                                </Pressable>
+                                                : <Pressable onPress={() => setShowPassword(false)}>
+
+                                                    <Feather name="eye-off" size={20} color="black" />
+
+                                                </Pressable>
+                                        }
+
+                                    </View>
+
+                                </View>
 
                                 {passwordError && <Text className={`text-RedColor font-poppins-regular`}>{passwordError}</Text>}
-
-                                <Pressable onPress={GoToForgotPassword} className={`flex-row gap-[3px]`}>
-
-                                    <Text className={`font-poppins-regular text-PinkColor`}>Forgot Password?</Text>
-
-                                </Pressable>
 
                             </View>
 
