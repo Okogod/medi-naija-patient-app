@@ -13,7 +13,7 @@ import SplashScreen from './src/screens/splash_screen/SplashScreen';
 import RootStackNavigator from "./src/navigators/stack_navigators/root_stack_navigator/RootStackNavigator";
 
 // Hook
-import useHasDoneOnboardingStore from "./src/hooks/UseHasDoneOnboardingStore";
+import { useHasDoneOnboarding } from "./src/hooks/global.hooks";
 
 const client = new QueryClient();
 
@@ -31,7 +31,7 @@ export default function App() {
     return null;
   }
 
-  const hasDoneOnboardingHydrated = useHasDoneOnboardingStore.persist.hasHydrated();
+  const hasDoneOnboardingHydrated = useHasDoneOnboarding.persist.hasHydrated();
 
 
   return (

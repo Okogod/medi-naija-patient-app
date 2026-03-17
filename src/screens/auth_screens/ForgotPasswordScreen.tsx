@@ -54,7 +54,7 @@ const ForgotPasswordScreen = () => {
 
                                 <Text className={`font-poppins-regular text-BlackColor`}>Email</Text>
 
-                                <TextInput keyboardType="email-address" className={`border-[1px] border-GreyColor p-[10px] rounded-[8px]`} />
+                                <TextInput keyboardType="email-address" className={`border-[1px] border-GreyColor p-[10px] rounded-[8px] font-poppins-medium`} />
 
                                 {emailError && <Text className={`text-RedColor font-poppins-regular`}>{emailError}</Text>}
 

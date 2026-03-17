@@ -6,11 +6,19 @@ import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
 import { SafeAreaView } from "react-native-safe-area-context";
 
-import { useQuery } from "@tanstack/react-query";
-
 import { useState, useEffect } from "react";
 
 import { AuthStackParamList } from "../../types/StacksParamList";
+
+import { usePostData } from "../../hooks/usePostData";
+
+// Utils - Functions
+import {
+    ValidateFirstname,
+    ValidateLastname,
+    ValidateEmail,
+    ValidatePassword
+} from "../../utils/functions/InputValidators";
 
 // Icons
 import { Feather } from '@expo/vector-icons';
@@ -20,6 +28,8 @@ const RegisterScreen = () => {
     const { height } = useWindowDimensions();
 
     const navigation = useNavigation<NativeStackNavigationProp<AuthStackParamList>>();
+
+    const sendRegistrationCodeRoute = `${process.env.EXPO_PUBLIC_API_URL}/patient/send-registration-code`;
 
     const [firstNameValue, setFirstNameValue] = useState("");
     const [lastNameValue, setLastNameValue] = useState("");
@@ -32,15 +42,14 @@ const RegisterScreen = () => {
     const [passwordError, setPasswordError] = useState("");
 
 
+    const [errorMessage, setErrorMessage] = useState("");
+
+
     const [showPassword, setShowPassword] = useState(false);
 
-    // Patterns
-    const namePatterns = /^[A-Za-z]+$/
-
-    const sendRegistrationCodeRoute = `${process.env.EXPO_PUBLIC_API_URL}/patient/send-registration-code`
 
 
-
+    const { mutateAsync } = usePostData(sendRegistrationCodeRoute)
 
 
     const GoToLogin = () => {
@@ -49,9 +58,41 @@ const RegisterScreen = () => {
 
     }
 
-    const GoToVerifyRegistration = () => {
+    const GoToVerifyRegistration = async () => {
 
-        navigation.replace("VerifyRegistrationCodeScreen");
+        const { firstNameIsValid } = ValidateFirstname(firstNameValue, setFirstNameError);
+
+        const { lastNameIsValid } = ValidateLastname(lastNameValue, setLastNameError);
+
+        const { emailIsValid } = ValidateEmail(emailValue, setEmailError);
+
+        const { passwordIsValid } = ValidatePassword(passwordValue, setPasswordError);
+
+        if (firstNameIsValid && lastNameIsValid && emailIsValid && passwordIsValid) {
+
+            const bodyData = { firstname: firstNameValue, lastname: lastNameValue, email: emailValue, password: passwordValue };
+
+            try {
+
+                const res = await mutateAsync(bodyData);
+
+                if (res.message) {
+
+                    navigation.replace("VerifyRegistrationCodeScreen", { email: emailValue && emailValue });
+
+                } else {
+
+                    setErrorMessage(res.error);
+
+                }
+
+            } catch (error: any) {
+
+                setErrorMessage("Internal Server Error. Please try again later.");
+
+            }
+
+        }
 
     }
 
@@ -78,7 +119,7 @@ const RegisterScreen = () => {
 
                                 <Text className={`font-poppins-regular text-BlackColor`}>Firstname</Text>
 
-                                <TextInput className={`border-[1px] border-GreyColor p-[10px] rounded-[8px]`} />
+                                <TextInput placeholder="eg. john" autoCorrect={false} value={firstNameValue} onChangeText={(text) => setFirstNameValue(text)} className={`border-[1px] border-GreyColor p-[10px] rounded-[8px] font-poppins-medium`} />
 
                                 {firstNameError && <Text className={`text-RedColor font-poppins-regular`}>{firstNameError}</Text>}
 
@@ -88,7 +129,7 @@ const RegisterScreen = () => {
 
                                 <Text className={`font-poppins-regular text-BlackColor`}>Lastname</Text>
 
-                                <TextInput className={`border-[1px] border-GreyColor p-[10px] rounded-[8px]`} />
+                                <TextInput placeholder="eg. Doe" autoCorrect={false} value={lastNameValue} onChangeText={(text) => setLastNameValue(text)} className={`border-[1px] border-GreyColor p-[10px] rounded-[8px] font-poppins-medium`} />
 
                                 {lastNameError && <Text className={`text-RedColor font-poppins-regular`}>{lastNameError}</Text>}
 
@@ -98,7 +139,7 @@ const RegisterScreen = () => {
 
                                 <Text className={`font-poppins-regular text-BlackColor`}>Email</Text>
 
-                                <TextInput keyboardType="email-address" className={`border-[1px] border-GreyColor p-[10px] rounded-[8px]`} />
+                                <TextInput autoCorrect={false} autoCapitalize="none" placeholder="eg. johndoe@gmail.com" value={emailValue} onChangeText={(text) => setEmailValue(text)} keyboardType="email-address" className={`border-[1px] border-GreyColor p-[10px] rounded-[8px] font-poppins-medium`} />
 
                                 {emailError && <Text className={`text-RedColor font-poppins-regular`}>{emailError}</Text>}
 
@@ -110,7 +151,7 @@ const RegisterScreen = () => {
 
                                 <View className={`border-[1px] border-GreyColor rounded-[8px]`}>
 
-                                    <TextInput secureTextEntry={!showPassword} className={`w-[90%] border-GreyColor p-[10px] rounded-[8px]`} />
+                                    <TextInput autoCorrect={false} placeholder="eg. passworD@123" value={passwordValue} onChangeText={(text) => setPasswordValue(text)} secureTextEntry={!showPassword} className={`w-[90%] border-GreyColor p-[10px] rounded-[8px] font-poppins-medium`} />
 
                                     <View className={`absolute right-[10px] top-[10px]`}>
 
@@ -158,6 +199,11 @@ const RegisterScreen = () => {
 
 
                     </View>
+
+                    {
+                        errorMessage && <Text className={`text-RedColor text-center text-[19px] font-poppins-medium`}>{errorMessage}</Text>
+                    }
+
 
                 </View>
 

@@ -13,11 +13,14 @@ import ResetPasswordScreen from "../../../screens/auth_screens/ResetPasswordScre
 
 const AuthStack = createNativeStackNavigator<AuthStackParamList>();
 
+import { useIsRegistered } from "../../../hooks/global.hooks";
 
 const AuthStackNavigator = () => {
 
+    const { isRegistered } = useIsRegistered();
+
     return(
-        <AuthStack.Navigator screenOptions={{ headerShown: false }}>
+        <AuthStack.Navigator screenOptions={{ headerShown: false }} initialRouteName={ isRegistered ? "LoginScreen" : "RegisterScreen" } >
 
             <AuthStack.Screen name="RegisterScreen" component={RegisterScreen}/>
 

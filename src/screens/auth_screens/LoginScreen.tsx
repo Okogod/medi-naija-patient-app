@@ -66,41 +66,52 @@ const LoginScreen = () => {
 
                                 <Text className={`font-poppins-regular text-BlackColor`}>Email</Text>
 
-                                <TextInput keyboardType="email-address" className={`border-[1px] border-GreyColor p-[10px] rounded-[8px]`} />
+                                <TextInput keyboardType="email-address" className={`border-[1px] border-GreyColor p-[10px] rounded-[8px] font-poppins-medium`} />
 
                                 {emailError && <Text className={`text-RedColor font-poppins-regular`}>{emailError}</Text>}
 
                             </View>
 
-                            <View className={`gap-[5px]`}>
+                            <View>
 
-                                <Text className={`font-poppins-regular text-BlackColor`}>Password</Text>
+                                <View className={`gap-[5px]`}>
 
-                                <View className={`border-[1px] border-GreyColor rounded-[8px]`}>
+                                    <Text className={`font-poppins-regular text-BlackColor`}>Password</Text>
 
-                                    <TextInput secureTextEntry={!showPassword} className={`w-[90%] border-GreyColor p-[10px] rounded-[8px]`} />
+                                    <View className={`border-[1px] border-GreyColor rounded-[8px]`}>
 
-                                    <View className={`absolute right-[10px] top-[10px]`}>
+                                        <TextInput secureTextEntry={!showPassword} className={`w-[90%] border-GreyColor p-[10px] rounded-[8px] font-poppins-medium`} />
 
-                                        {
-                                            showPassword == false ?
-                                                <Pressable onPress={() => setShowPassword(true)}>
+                                        <View className={`absolute right-[10px] top-[10px]`}>
 
-                                                    <Feather name="eye" size={20} color="black" />
+                                            {
+                                                showPassword == false ?
+                                                    <Pressable onPress={() => setShowPassword(true)}>
 
-                                                </Pressable>
-                                                : <Pressable onPress={() => setShowPassword(false)}>
+                                                        <Feather name="eye" size={20} color="black" />
 
-                                                    <Feather name="eye-off" size={20} color="black" />
+                                                    </Pressable>
+                                                    : <Pressable onPress={() => setShowPassword(false)}>
 
-                                                </Pressable>
-                                        }
+                                                        <Feather name="eye-off" size={20} color="black" />
+
+                                                    </Pressable>
+                                            }
+
+                                        </View>
+
 
                                     </View>
 
+                                    {passwordError && <Text className={`text-RedColor font-poppins-regular`}>{passwordError}</Text>}
+
                                 </View>
 
-                                {passwordError && <Text className={`text-RedColor font-poppins-regular`}>{passwordError}</Text>}
+                                <Pressable onPress={GoToForgotPassword} className={`flex-row gap-[3px]`}>
+
+                                    <Text className={`font-poppins-regular text-PinkColor`}>Forgot Password?</Text>
+
+                                </Pressable>
 
                             </View>
 

@@ -1,27 +1,116 @@
-import { TouchableWithoutFeedback, Keyboard, View, Text, TextInput, Pressable } from 'react-native'
+import { TouchableWithoutFeedback, Keyboard, View, Text, TextInput, Pressable, TextInputKeyPressEvent } from 'react-native'
 
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
-import { useNavigation } from '@react-navigation/native';
-
+import { useNavigation, useRoute, Route, RouteProp } from '@react-navigation/native';
 
 import { AuthStackParamList } from '../../types/StacksParamList';
 
+import { useState, useRef, useEffect } from 'react';
+
+import { usePostData } from '../../hooks/usePostData';
+
+import { useIsRegistered } from '../../hooks/global.hooks';
+
+// Utils - Components
+import ResendOtp from '../../utils/compoenents/resend_otp/ResendOtp';
+
+const OtpLength = 4;
+
 const VerifyRegistrationCodeScreen = () => {
+
+    const verifyUrl = `${process.env.EXPO_PUBLIC_API_URL}/patient/verify-registration-code`;
+
+    const ResendUrl = `${process.env.EXPO_PUBLIC_API_URL}/patient/resend-registration-code`;
+
+    const { setIsRegistered } = useIsRegistered();
 
     const navigation = useNavigation<NativeStackNavigationProp<AuthStackParamList>>();
 
-    const GoToLogin = () => {
+    const { email } = useRoute<RouteProp<AuthStackParamList, "VerifyRegistrationCodeScreen">>().params;
 
-        navigation.replace("LoginScreen");
+    const [otp, setOtp] = useState(new Array(OtpLength).fill(""));
+
+
+    const [nextIndex, setNextIndex] = useState(0);
+
+
+    const [succesMessage, setSuccesMessage] = useState("");
+
+    const [errorMessage, setErrorMessage] = useState("");
+
+    const InputRef = useRef<TextInput>(null!);
+
+    const HandleOtpInputChange = (text: string, index: number) => {
+        const newOtp = [...otp];
+        newOtp.splice(index, 1, text);
+        setOtp(newOtp);
+
+        if (text != "" && nextIndex != OtpLength - 1) {
+            setNextIndex(index + 1);
+        }
+
+    }
+
+    const HandleDelete = (e: TextInputKeyPressEvent, index: number) => {
+
+        if (e.nativeEvent.key == "Backspace") {
+
+            if (nextIndex !== 0) {
+
+                setNextIndex(index - 1);
+
+            }
+        }
+
+    }
+
+
+    useEffect(() => {
+        InputRef.current?.focus();
+        if (otp.every(every => every != "")) {
+        }
+    }, [otp, nextIndex])
+
+    const { mutateAsync: VerifyCodeMutate  } = usePostData(verifyUrl);
+
+    const { mutateAsync: ResendCodeMutate  } = usePostData(ResendUrl);
+
+
+    const GoToLogin = async () => {
+
+        const response = await VerifyCodeMutate({ email, code: otp.join("") });
+
+        if (response.message) {
+
+            setSuccesMessage(response.message);
+
+            setIsRegistered(true);
+
+            setTimeout(() => {
+
+                navigation.replace("LoginScreen");
+
+            }, 2000)
+        } else {
+
+            setErrorMessage(response.error);
+
+        }
 
     }
 
     const GoToRegistration = () => {
 
         navigation.replace("RegisterScreen");
+
+    }
+
+    const resend = async () => {
+
+        const response = await ResendCodeMutate({email});
 
     }
 
@@ -44,10 +133,22 @@ const VerifyRegistrationCodeScreen = () => {
                     <View className={`gap-[20px] flex-row m-[auto]`}>
 
                         {
-                            new Array(4).fill("").map((_, index) => <TextInput keyboardType='numeric' maxLength={1} key={index} className={` border-GreyColor border-[1px] w-[70px] h-[70px] rounded-[15px] text-center`} />)
+                            new Array(OtpLength).fill("").map((_, index) =>
+                                <TextInput
+                                    ref={index == nextIndex ? InputRef : null}
+                                    onChangeText={(text) => HandleOtpInputChange(text, index)}
+                                    onKeyPress={(e) => HandleDelete(e, index)}
+                                    keyboardType="number-pad"
+                                    maxLength={1}
+                                    key={index}
+                                    className={` border-GreyColor border-[1px] w-[70px] h-[70px] rounded-[15px] text-center font-poppins-medium`}
+                                />)
                         }
 
                     </View>
+
+                    <ResendOtp resend={resend} />
+                    
 
                     <View>
 
@@ -64,6 +165,18 @@ const VerifyRegistrationCodeScreen = () => {
                             <Text className={`text-PinkColor font-poppins-medium`}>Go back to registration</Text>
 
                         </Pressable>
+
+                        {
+
+                            errorMessage && <Text className={`text-center text-RedColor text-[18px] font-poppins-medium mt-[20px]`}>{errorMessage}</Text>
+
+                        }
+
+                        {
+
+                            succesMessage && <Text className={`text-center text-DarkGreenColor text-[18px] font-poppins-medium mt-[20px]`}>{succesMessage}</Text>
+
+                        }
 
 
 

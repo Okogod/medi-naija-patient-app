@@ -5,8 +5,7 @@ import type { RootStackParamList } from '../../../types/StacksParamList';
 
 const RootStack = createNativeStackNavigator<RootStackParamList>();
 
-import useHasDoneOnboardingStore from '../../../hooks/UseHasDoneOnboardingStore';
-
+import { useHasDoneOnboarding } from '../../../hooks/global.hooks';
 //  Stack 
 import OnboardingStackNavigator from '../onboarding_stack_navigator.tsx/OnboardingStackNavigator';
 import AuthStackNavigator from '../auth_stack_navigator/AuthStack';
@@ -14,7 +13,7 @@ import MainTabNavigator from '../../main_tab_navigator/MainTabNavigator';
 
 const RootStackNavigator = () => {
 
-    const { hasDoneOnboarding } = useHasDoneOnboardingStore();
+    const { hasDoneOnboarding } = useHasDoneOnboarding();
 
     return(
 

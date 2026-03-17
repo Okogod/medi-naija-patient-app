@@ -8,8 +8,7 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
 import { RootStackParamList } from '../../types/StacksParamList';
 
-import useHasDoneOnboardingStore from '../../hooks/UseHasDoneOnboardingStore';
-
+import { useHasDoneOnboarding } from '../../hooks/global.hooks';
 // Asset
 const WelcomeImage = require('../../../assets/images/welcome_screen_images/welcome_screen_image.png');
 
@@ -17,7 +16,7 @@ const WelcomeScreen = () => {
 
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
-    const { setHasDoneOnboarding } = useHasDoneOnboardingStore();
+    const { setHasDoneOnboarding } = useHasDoneOnboarding();
 
     const ToRegister = () => {
 

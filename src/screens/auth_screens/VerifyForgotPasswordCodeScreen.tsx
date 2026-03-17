@@ -44,7 +44,7 @@ const VerifyForgotPasswordCodeScreen = () => {
                     <View className={`gap-[20px] flex-row m-[auto]`}>
 
                         {
-                            new Array(4).fill("").map((_, index) => <TextInput keyboardType='numeric' maxLength={1} key={index} className={` border-GreyColor border-[1px] w-[70px] h-[70px] rounded-[15px] text-center`} />)
+                            new Array(4).fill("").map((_, index) => <TextInput keyboardType='numeric' maxLength={1} key={index} className={` border-GreyColor border-[1px] w-[70px] h-[70px] rounded-[15px] text-center font-poppins-medium`} />)
                         }
 
                     </View>
