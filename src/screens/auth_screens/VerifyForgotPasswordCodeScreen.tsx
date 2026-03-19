@@ -6,8 +6,9 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
 import { useNavigation } from '@react-navigation/native';
 
-
 import { AuthStackParamList } from '../../types/StacksParamList';
+
+import ResendOtp from '../../utils/compoenents/resend_otp/ResendOtp';
 
 const VerifyForgotPasswordCodeScreen = () => {
 
@@ -23,6 +24,10 @@ const VerifyForgotPasswordCodeScreen = () => {
 
         navigation.replace("ForgotPasswordScreen");
 
+    }
+
+    const Resend = () => {
+        console.log("Resend code in Forgot Password")
     }
 
     return (
@@ -48,6 +53,8 @@ const VerifyForgotPasswordCodeScreen = () => {
                         }
 
                     </View>
+
+                    <ResendOtp resend={Resend}/>
 
                     <View>
 

@@ -72,7 +72,7 @@ const LoginScreen = () => {
 
                             </View>
 
-                            <View>
+                            <View className={`gap-[10px]`}>
 
                                 <View className={`gap-[5px]`}>
 

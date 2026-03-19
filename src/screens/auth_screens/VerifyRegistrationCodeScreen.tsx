@@ -112,6 +112,30 @@ const VerifyRegistrationCodeScreen = () => {
 
         const response = await ResendCodeMutate({email});
 
+        if (response.message) {
+
+            setSuccesMessage(response.message);
+            setErrorMessage("");
+
+            setIsRegistered(true);
+
+            setTimeout(() => {
+
+                navigation.replace("LoginScreen");
+
+            }, 2000)
+        }else {
+
+            setErrorMessage(response.error);
+            setSuccesMessage("");
+
+            setTimeout( () => {
+                setErrorMessage("");
+                setSuccesMessage("");
+            }, 900000)
+
+        }
+
     }
 
     return (
