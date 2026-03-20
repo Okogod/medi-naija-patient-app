@@ -10,7 +10,7 @@ export type AuthStackParamList = {
     LoginScreen: undefined,
     ForgotPasswordScreen: undefined,
     VerifyRegistrationCodeScreen: { email: string},
-    VerifyForgotPasswordCodeScreen: undefined,
+    VerifyForgotPasswordCodeScreen: { email: string },
     ResetPasswordScreen: undefined
 }
 

@@ -10,13 +10,26 @@ import { useState } from "react";
 
 import { AuthStackParamList } from "../../types/StacksParamList";
 
+import { usePostData } from "../../hooks/usePostData";
+
+import { ValidateEmail } from "../../utils/functions/InputValidators";
+
 const ForgotPasswordScreen = () => {
 
     const { height } = useWindowDimensions();
 
-    const navigation = useNavigation<NativeStackNavigationProp<AuthStackParamList>>()
+    const navigation = useNavigation<NativeStackNavigationProp<AuthStackParamList>>();
+
+    const [emailValue, setEmailValue] = useState("");
 
     const [emailError, setEmailError] = useState("");
+
+    const [successMessage, setSuccessMessage] = useState("");
+    const [errorMessage, setErrorMessage] = useState("");
+
+    const forgotPasswordUrl = `${process.env.EXPO_PUBLIC_API_URL}/patient/send-forgot-password-code`
+
+    const { mutateAsync } = usePostData(forgotPasswordUrl)
 
     const GoToLogin = () => {
 
@@ -24,9 +37,40 @@ const ForgotPasswordScreen = () => {
 
     }
 
-    const GoToVerifyForgotPasswordCode = () => {
+    const GoToVerifyForgotPasswordCode = async () => {
 
-        navigation.replace("VerifyForgotPasswordCodeScreen");
+        try {
+
+            const { emailIsValid } = await ValidateEmail(emailValue, setEmailError);
+
+            const response = await mutateAsync({ email: emailValue });
+
+            if (response.message) {
+
+                setSuccessMessage(response.message);
+
+                setErrorMessage("");
+
+                setTimeout(() => {
+
+                    navigation.replace("VerifyForgotPasswordCodeScreen", { email: emailValue && emailValue });
+
+                }, 2000);
+
+            } else {
+                setErrorMessage(response.error);
+
+                setSuccessMessage("");
+            }
+
+        } catch (error) {
+            console.error(error);
+        }
+
+
+
+
+
 
     }
 
@@ -54,7 +98,7 @@ const ForgotPasswordScreen = () => {
 
                                 <Text className={`font-poppins-regular text-BlackColor`}>Email</Text>
 
-                                <TextInput keyboardType="email-address" className={`border-[1px] border-GreyColor p-[10px] rounded-[8px] font-poppins-medium`} />
+                                <TextInput autoCorrect={false} autoCapitalize="none" onChangeText={(text) => setEmailValue(text)} keyboardType="email-address" className={`border-[1px] border-GreyColor p-[10px] rounded-[8px] font-poppins-medium`} />
 
                                 {emailError && <Text className={`text-RedColor font-poppins-regular`}>{emailError}</Text>}
 
@@ -83,7 +127,19 @@ const ForgotPasswordScreen = () => {
 
                     </View>
 
+                    {
+
+                        errorMessage && <Text className={`text-center text-[18px] text-RedColor font-poppins-medium`} >{errorMessage}</Text>
+
+                    }
+
+                    {
+
+                        successMessage && <Text className={`text-center text-[18px] text-DarkGreenColor font-poppins-medium`} >{successMessage}</Text>
+
+                    }
                 </View>
+
 
 
 

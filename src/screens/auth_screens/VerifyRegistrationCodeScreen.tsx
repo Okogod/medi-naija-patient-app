@@ -4,7 +4,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
-import { useNavigation, useRoute, Route, RouteProp } from '@react-navigation/native';
+import { useNavigation, useRoute, RouteProp } from '@react-navigation/native';
 
 import { AuthStackParamList } from '../../types/StacksParamList';
 
@@ -13,6 +13,8 @@ import { useState, useRef, useEffect } from 'react';
 import { usePostData } from '../../hooks/usePostData';
 
 import { useIsRegistered } from '../../hooks/global.hooks';
+
+
 
 // Utils - Components
 import ResendOtp from '../../utils/compoenents/resend_otp/ResendOtp';
@@ -70,8 +72,6 @@ const VerifyRegistrationCodeScreen = () => {
 
     useEffect(() => {
         InputRef.current?.focus();
-        if (otp.every(every => every != "")) {
-        }
     }, [otp, nextIndex])
 
     const { mutateAsync: VerifyCodeMutate  } = usePostData(verifyUrl);
